@@ -10,6 +10,12 @@ use Validator;
 
 class UserController extends Controller
 {
+
+    // METHOD CONSTRUCT
+    // public function __construct()
+    // {
+    //     $this -> middleware('auth');
+    // }
     /**
      * Display a listing of the resource.
      *

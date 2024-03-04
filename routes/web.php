@@ -18,12 +18,16 @@ Route::get('/', function () {
 });
 
 Auth::routes();
+// MIDDLEWARE
+Route::middleware('auth')->group(function(){
+    // Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+    Route::get('/dashboard',[App\Http\Controllers\Dashboard\DashboardController::class, 'index']) -> name('Dashboard');
 
-// Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-Route::get('/dashboard',[App\Http\Controllers\Dashboard\DashboardController::class, 'index']) -> name('Dashboard');
+    // USER
+    Route::get('/dashboard/user',[App\Http\Controllers\Dashboard\UserController::class, 'index'])->name('dashboard.user');
+    Route::get('/dashboard/user/edit/{id}',[App\Http\Controllers\Dashboard\UserController::class, 'edit'])->name('dashboard.user.edit');
+    Route::put('/dashboard/user/update/{id}',[App\Http\Controllers\Dashboard\UserController::class, 'update'])->name('dashboard.user.update');
+    Route::delete('/dashboard/user/delete/{id}',[App\Http\Controllers\Dashboard\UserController::class, 'destroy']) -> name('dashboard.user.delete');
 
-// USER
-Route::get('/dashboard/user',[App\Http\Controllers\Dashboard\UserController::class, 'index']);
-Route::get('/dashboard/user/edit/{id}',[App\Http\Controllers\Dashboard\UserController::class, 'edit']);
-Route::put('/dashboard/user/update/{id}',[App\Http\Controllers\Dashboard\UserController::class, 'update']);
-Route::delete('/dashboard/user/delete/{id}',[App\Http\Controllers\Dashboard\UserController::class, 'destroy']);
+
+});
