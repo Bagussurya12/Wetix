@@ -29,7 +29,7 @@ Route::middleware('auth')->group(function(){
     Route::get('/dashboard/movies/{movie}', [App\Http\Controllers\Dashboard\MovieController::class, 'edit'])->name('dashboard.movies.edit');
     Route::put('/dashboard/movies/{movie}',[App\Http\Controllers\Dashboard\MovieController::class, 'update']) -> name('dashboard.movies.update');
     Route::post('/dashboard/movies', 'App\Http\Controllers\Dashboard\MovieController@store')->name('dashboard.movies.store');
-    Route::delete('/dashboard/movie/{movie}', [App\Http\Controllers\Dashboard\MovieController::class, 'destroy'])->name('dashboard.movies.delete');
+    Route::delete('/dashboard/movies/{movie}', [App\Http\Controllers\Dashboard\MovieController::class, 'destroy'])->name('dashboard.movies.delete');
 
 
 
