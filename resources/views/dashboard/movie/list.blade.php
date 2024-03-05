@@ -2,7 +2,7 @@
 
 @section('content')
 <div class="mb-2">
-    <a href="{{ route('dashboard.movies.create')}}" class="btn btn-success"> + Movie</a>
+    <a href="{{ route('dashboard.movies.create')}}" class="btn btn-success btn-sm"> + Movie</a>
 </div>
 <div class="card mt-4">
     <div class="card-header">
@@ -27,25 +27,28 @@
             <table class="table table-striped table-hover">
                 <thead>
                     <tr>
-                        <th>#</th>
-                        <th>Title</th>
+                        <th>&nbsp;</th>
                         <th>Thumbnail</th>
-                        <th>Action</th>
+                        <th>Title</th>
+                         <th>Action</th>
                     </tr>
                 </thead>   
         
                 <tbody>
                     @foreach ($movies as $movie)
                     <tr>
-                        <th scope="row">{{($movies -> currentPage()-1) * $movies -> perPage() + $loop -> iteration}}</th>
-                        <td>{{$movie -> title}}</td>
+                      
+                        <td class="col-thumbnail">
+                            <img src="{{asset('storage/movies/'.$movie -> thumbnail)}}" alt="thumbnail" class="img-fluid">
                         <td>
-                            <img src="{{asset('storage/movies/'.$movie -> thumbnail)}}" alt="thumbnail">
-                            {{$movie -> thumbnail}}</td>
-
                         <td>
-                            {{-- <!-- <a href="{{ url('dashboard/movie/edit/'.$movie->id) }}" class="btn btn-warning btn-sm" title="Edit"><i class="fa-solid fa-pen"></i></a> --> --}}
-                            {{-- <a href="{{ route('dashboard.movies.edit', ['id' => $movie->id]) }}" class="btn btn-warning btn-sm" title="Edit"><i class="fa-solid fa-pen"></i></a> --}}
+                            <h5><strong>{{$movie -> title}}</strong></h5></td>
+                       
+                            
+                            {{-- <a href="{{ route('dashboard.movies.edit', ['id' => $movie->id]) }}" class="btn btn-warning btn-sm" title="edit">
+                                <i class="fa-solid fa-pen"></i>
+                            </a> --}}
+                         <td> <i class="fa-solid fa-pen"></i></td>
                         </td>
                     </tr>
                     @endforeach
