@@ -5,6 +5,10 @@ namespace App\Http\Controllers\Dashboard;
 use App\Models\Movie;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Validator;
+
+
 
 class MovieController extends Controller
 {
@@ -38,11 +42,13 @@ class MovieController extends Controller
     public function create()
     {
         $active = 'Movies';
-
+        $url = route('dashboard.movies.store'); // Menentukan URL untuk action form saat membuat movie baru
+    
         return view('dashboard.movie.form', [
             'active' => $active,
+            'url' => $url, // Mengirimkan variabel $url ke view
+            'button' => 'Create', // Menentukan label tombol
         ]);
-        
     }
 
     /**
@@ -53,11 +59,12 @@ class MovieController extends Controller
      */
     public function store(Request $request, Movie $movie)
     {
-        $validator = Validator::make($request -> all(), [
-            'title' => 'required | unique:App\Models\Movie, title',
+        $validator = Validator::make($request->all(), [
+            'title' => 'required|unique:movies,title',
             'description' => 'required',
-            'thumbnail' => 'required | image', 
+            'thumbnail' => 'required|image', 
         ]);
+        
 
         if($validator -> fails()){
             return redirect() -> route('dashboard.movie.create')
@@ -93,9 +100,18 @@ class MovieController extends Controller
      * @param  \App\Models\Movie  $movie
      * @return \Illuminate\Http\Response
      */
-    public function edit(Movie $movie)
+    public function edit(Movie $movie )
     {
-        //
+        $active = 'Movies';
+        $url = route('dashboard.movies.update', $movie->id); // Menentukan URL untuk action form saat mengedit movie
+    
+        return view('dashboard/movie/form', [
+            'active' => $active,
+            'movie' => $movie,
+            'button' => 'Update', // Menentukan label tombol
+            'url' => 'dashboard.movies.update', // Mengirimkan variabel $url ke view
+        ]);
+        
     }
 
     /**
@@ -107,7 +123,33 @@ class MovieController extends Controller
      */
     public function update(Request $request, Movie $movie)
     {
-        //
+        $validator = Validator::make($request->all(), [
+            'title' => 'required',
+            'description' => 'required',
+        ]);
+        
+        
+
+        if($validator -> fails()){
+            return redirect() -> route('dashboard.movies.update', $movie -> id)
+                                -> withErrors($validator)
+                                -> withInput();
+        }else{
+            if($request -> hasFile('thumbnail')){
+                $image = $request -> file('thumbnail');
+                $fileName = time() . '.' . $image -> getClientOriginalExtension();
+                Storage::disk('local')-> putFileAs('public/movies', $image, $fileName);
+
+                $movie -> thumbnail = $fileName;
+            }
+ 
+            $movie -> title = $request ->input('title');
+            $movie -> description = $request ->input('description');
+            
+            $movie ->save();
+
+            return redirect() -> route('dashboard.movies');
+        }
     }
 
     /**

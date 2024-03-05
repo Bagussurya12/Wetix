@@ -2,7 +2,8 @@
 
 @section('content')
 <div class="mb-2">
-    <a href="{{ route('dashboard.movies.create')}}" class="btn btn-success btn-sm"> + Movie</a>
+    <a href="{{ route('dashboard.movies.create') }}" class="btn btn-success btn-sm"> + Movie</a>
+
 </div>
 <div class="card mt-4">
     <div class="card-header">
@@ -42,14 +43,15 @@
                             <img src="{{asset('storage/movies/'.$movie -> thumbnail)}}" alt="thumbnail" class="img-fluid">
                         <td>
                         <td>
-                            <h5><strong>{{$movie -> title}}</strong></h5></td>
-                       
-                            
-                            {{-- <a href="{{ route('dashboard.movies.edit', ['id' => $movie->id]) }}" class="btn btn-warning btn-sm" title="edit">
-                                <i class="fa-solid fa-pen"></i>
-                            </a> --}}
-                         <td> <i class="fa-solid fa-pen"></i></td>
+                            <h5><strong>{{$movie -> title}}</strong></h5>
                         </td>
+                        <td>
+                            <a href="{{ route('dashboard.movies.edit', $movie->id) }}" class="btn btn-warning btn-sm" title="edit">
+                                <i class="fa-solid fa-pen"></i>
+                            </a>
+                        </td>
+                        
+
                     </tr>
                     @endforeach
                 </tbody>
