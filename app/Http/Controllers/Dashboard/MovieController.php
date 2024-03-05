@@ -13,24 +13,22 @@ class MovieController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request, Movie $movies)
-    {
-        $q = $request->input('q');
-        $active = 'Movies';
+    public function index(Request $request)
+{
+    $q = $request->input('q');
+    $active = 'Movies';
 
-        $movies = $movies -> when($q, function ($query) use ($q) {
-            return $query-> where('title', 'like', '%' . $q . '%');              
-        })->simplePaginate(10);
+    $movies = Movie::when($q, function ($query) use ($q) {
+        return $query->where('title', 'like', '%' . $q . '%');
+    })->paginate(10);
 
-        $request = $request -> all();
+    return view('dashboard.movie.list', [
+        'movies' => $movies,
+        'request' => $request,
+        'active' => $active,
+    ]);
+}
 
-        
-        return view('dashboard.movie.list', [
-            'movies' => $movies,
-            'request' => $request,
-            'active' => $active,
-        ]);
-    }
 
     /**
      * Show the form for creating a new resource.

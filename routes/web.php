@@ -24,7 +24,7 @@ Route::middleware('auth')->group(function(){
     Route::get('/dashboard',[App\Http\Controllers\Dashboard\DashboardController::class, 'index']) -> name('dashboard');
 
     // MOVIE URL
-    Route::get('/dashboard/movies',[App\Http\Controllers\Dashboard\MovieController::class, 'index']) -> name('dashboard.movies');
+    Route::get('/dashboard/movie',[App\Http\Controllers\Dashboard\MovieController::class, 'index']) -> name('dashboard.movies');
 
 
 
