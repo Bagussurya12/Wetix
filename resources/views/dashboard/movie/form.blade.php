@@ -26,7 +26,7 @@
                     @method('put')
                     <div class="form-group">
                         <label for="title">Title</label>
-                        <input type="text" class="form-control" name="title" value="{{$movie->title}}">
+                        <input type="text" class="form-control @error('title') {{'is-invalid'}} @enderror" name="title" value="{{ old('title') ?? $movie->title}}">
                         @error('title')
                         <span class="text-danger">{{ $message }}</span>
                         @enderror
@@ -34,14 +34,14 @@
         
                     <div class="form-group">
                         <label for="description">Description</label>
-                        <textarea name="description" class="form-control">{{$movie->description}}</textarea>
+                        <textarea name="description" class="form-control @error('description') {{'is-invalid'}} @enderror">{{ old('title') ?? $movie->description}}</textarea>
                         @error('description')
                         <span class="text-danger">{{ $message }}</span>
                         @enderror
                     </div>
                     <div class="form-group mt-4">
                         <div class="custom-file">
-                            <input class="custom-file-input" type="file" name="thumbnail">
+                            <input class="custom-file-input" type="file" name="thumbnail"value="old('thumbnail')">
                             <label for="thumbnail" class="custom-file-label">Thumbnail</label>
                             @error('thumbnail')
                             <span class="text-danger">{{ $message }}</span>
@@ -66,14 +66,14 @@
             </div>
 
             <div class="modal-body">
-               {{-- <p>Anda Yakin Ingin Hapus {{$movie->title}}</p> --}}
+               <p>Anda Yakin Ingin Hapus {{$movie->title}} ?</p>
             </div>
             
             <div class="modal-footer">
-             {{-- <form action="{{ url('dashboard/movies/delete/'.$movie->id) }}" method="POST"> --}}
+             <form action="{{ url('dashboard/movies/delete/'.$movie->id) }}" method="POST">
                  @csrf
                     <input type="hidden" name="_method" value="DELETE"> <!-- Gunakan _method untuk menetapkan metode DELETE -->
-                    {{-- <input type="hidden" name="movie_id" value="{{$movie->id}}"> --}}
+                    <input type="hidden" name="movie_id" value="{{$movie->id}}">
                 <button type="submit" class="btn btn-sm btn-danger"><i class="fa-solid fa-trash" style="color: #f2e8e8;"></i></button>
             </form>
 

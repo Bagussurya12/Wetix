@@ -109,7 +109,7 @@ class UserController extends Controller
             $user->email = $request->input('email');
             $user->save();
             
-            return redirect('dashboard/user');
+            return redirect('dashboard/users');
         }
 
         
