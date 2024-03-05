@@ -1,7 +1,9 @@
 @extends('layouts.dashboard')
 
 @section('content')
-
+<div class="mb-2">
+    <a href="{{ route('dashboard.movies.create')}}" class="btn btn-success"> + Movie</a>
+</div>
 <div class="card mt-4">
     <div class="card-header">
         <div class="row">
@@ -37,11 +39,13 @@
                     <tr>
                         <th scope="row">{{($movies -> currentPage()-1) * $movies -> perPage() + $loop -> iteration}}</th>
                         <td>{{$movie -> title}}</td>
-                        <td>{{$movie -> thumbnail}}</td>
+                        <td>
+                            <img src="{{asset('storage/movies/'.$movie -> thumbnail)}}" alt="thumbnail">
+                            {{$movie -> thumbnail}}</td>
 
                         <td>
-                            <!-- <a href="{{ url('dashboard/movie/edit/'.$movie->id) }}" class="btn btn-warning btn-sm" title="Edit"><i class="fa-solid fa-pen"></i></a> -->
-                            <a href="{{ route('dashboard.movies.edit', ['id' => $movie->id]) }}" class="btn btn-warning btn-sm" title="Edit"><i class="fa-solid fa-pen"></i></a>
+                            {{-- <!-- <a href="{{ url('dashboard/movie/edit/'.$movie->id) }}" class="btn btn-warning btn-sm" title="Edit"><i class="fa-solid fa-pen"></i></a> --> --}}
+                            {{-- <a href="{{ route('dashboard.movies.edit', ['id' => $movie->id]) }}" class="btn btn-warning btn-sm" title="Edit"><i class="fa-solid fa-pen"></i></a> --}}
                         </td>
                     </tr>
                     @endforeach
@@ -50,7 +54,7 @@
             </table>
 
             <div class="m-5 pagination">
-                {{ $movies->appends($request)-> links() }} 
+                {{-- {{ $movies->appends($request)-> links() }}  --}}
             </div>
             @else 
                 <h5 class="text-center fw-bold p-3"> Data Movie Tidak Tersedia </h5>

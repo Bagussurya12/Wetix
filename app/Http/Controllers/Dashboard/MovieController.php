@@ -14,20 +14,20 @@ class MovieController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index(Request $request)
-{
-    $q = $request->input('q');
-    $active = 'Movies';
+        {
+            $q = $request->input('q');
+            $active = 'Movies';
 
-    $movies = Movie::when($q, function ($query) use ($q) {
-        return $query->where('title', 'like', '%' . $q . '%');
-    })->paginate(10);
+            $movies = Movie::when($q, function ($query) use ($q) {
+                return $query->where('title', 'like', '%' . $q . '%');
+            })->paginate(10);
 
-    return view('dashboard.movie.list', [
-        'movies' => $movies,
-        'request' => $request,
-        'active' => $active,
-    ]);
-}
+            return view('dashboard.movie.list', [
+                'movies' => $movies,
+                'request' => $request,
+                'active' => $active,
+            ]);
+        }
 
 
     /**
@@ -37,7 +37,12 @@ class MovieController extends Controller
      */
     public function create()
     {
-        //
+        $active = 'Movies';
+
+        return view('dashboard.movie.form', [
+            'active' => $active,
+        ]);
+        
     }
 
     /**
@@ -46,9 +51,29 @@ class MovieController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request, Movie $movie)
     {
-        //
+        $validator = Validator::make($request -> all(), [
+            'title' => 'required | unique:App\Models\Movie, title',
+            'description' => 'required',
+            'thumbnail' => 'required | image', 
+        ]);
+
+        if($validator -> fails()){
+            return redirect() -> route('dashboard.movie.create')
+                                -> withErrors($validator)
+                                -> withInput();
+        }else{
+            $image = $request -> file('thumbnail');
+            $fileName = time() . '.' . $image -> getClientOriginalExtension();
+            Storage::disk('local')-> putFileAs('public/movies', $image, $fileName);
+            $movie -> title = $request ->input('title');
+            $movie -> description = $request ->input('description');
+            $movie -> thumbnail = $fileName;
+            $movie ->save();
+
+            return redirect() -> route('dashboard.movies');
+        }
     }
 
     /**
