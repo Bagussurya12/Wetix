@@ -13,10 +13,22 @@ class TheaterController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
+        $q = $request->input('q');
+        $active = 'Theaters';
+
+        $theaters = Theater::when($q, function ($query) use ($q) {
+            return $query->where('theater', 'like', '%' . $q . '%');
+        })->paginate(10);
+
+        return view('dashboard.theater.list', [
+            'theaters' => $theaters,
+            'request' => $request,
+            'active' => $active,
+        ]);
     }
+
 
     /**
      * Show the form for creating a new resource.
