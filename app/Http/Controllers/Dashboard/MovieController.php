@@ -48,6 +48,7 @@ class MovieController extends Controller
             'active' => $active,
             'url' => $url, // Mengirimkan variabel $url ke view
             'button' => 'Create', // Menentukan label tombol
+            'url' => 'dashboard.movies.store',
         ]);
     }
 
