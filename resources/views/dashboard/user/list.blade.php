@@ -21,7 +21,7 @@
         </div>
     </div>
     <div class="card-body p-0">
-        @if($users -> total())
+        
             <table class="table table-striped table-hover">
             <thead>
                 <tr>
@@ -35,7 +35,7 @@
             </thead>   
     
             <tbody>
-                {{-- @foreach ($users as $user) --}}
+                @foreach ($users as $user)
                 <tr>
                     <th scope="row">{{($users -> currentPage()-1) * $users -> perPage() + $loop -> iteration}}</th>
                     <td>{{$user -> name}}</td>
@@ -54,9 +54,7 @@
             <div class="m-5 pagination">
                 {{ $users->appends($request)-> links() }} 
             </div>
-            {{-- @else
-            <h5 class="text-center fw-bold p-3"> Data User Tidak Tersedia </h5>
-            @endif --}}
+            
     </div>
 </div>
 

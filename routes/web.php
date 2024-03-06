@@ -35,6 +35,8 @@ Route::middleware('auth')->group(function(){
 
 
     Route::get('/dashboard/theaters',[App\Http\Controllers\Dashboard\TheaterController::class, 'index']) -> name('dashboard.theaters');
+    Route::get('/dashboard/theaters/create',[App\Http\Controllers\Dashboard\TheaterController::class, 'create']) -> name('dashboard.theaters.create');
+    Route::post('/dashboard/theaters', [App\Http\Controllers\Dashboard\TheaterController::class, 'store']) -> name('dashboard.theaters.store');
     Route::get('/dashboard/tickets',[App\Http\Controllers\Dashboard\TicketController::class, 'index']) -> name('dashboard.tickets');
 
 

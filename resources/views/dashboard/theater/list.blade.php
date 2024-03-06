@@ -2,7 +2,7 @@
 
 @section('content')
 <div class="mb-2">
-    {{-- <a href="{{ route('dashboard.theaters.create') }}" class="btn btn-success btn-sm"> + thaters</a> --}}
+    <a href="{{ route('dashboard.theaters.create') }}" class="btn btn-success btn-sm"> + thaters</a>
 </div>
 @if(session() -> has('message'))
     <div id="alertSuccess" class="alert alert-success d-flex justify-content-between align-items-center">

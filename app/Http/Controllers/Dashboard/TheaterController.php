@@ -22,7 +22,7 @@ class TheaterController extends Controller
             return $query->where('theater', 'like', '%' . $q . '%');
         })->paginate(10);
 
-        return view('dashboard.theater.list', [
+        return view('dashboard/theater/list', [
             'theaters' => $theaters,
             'request' => $request,
             'active' => $active,
@@ -37,7 +37,13 @@ class TheaterController extends Controller
      */
     public function create()
     {
-        //
+        $active = 'Theaters';
+      
+        return view('dashboard.theater.form', [
+            'active' => $active,
+            'url' => 'dashboard.theaters.store',
+            'button' => 'Create',
+        ]);
     }
 
     /**
