@@ -80,7 +80,7 @@ class MovieController extends Controller
             $movie -> thumbnail = $fileName;
             $movie ->save();
 
-            return redirect() -> route('dashboard.movies');
+            return redirect() -> route('dashboard.movies')->with('message', 'Data Movie Berhasil Ditambahkan');
         }
     }
 
@@ -149,7 +149,7 @@ class MovieController extends Controller
             
             $movie ->save();
 
-            return redirect() -> route('dashboard.movies');
+            return redirect() -> route('dashboard.movies')->with('message', 'Data Movie Berhasil Diupdate');
         }
     }
 
@@ -164,6 +164,6 @@ class MovieController extends Controller
         $movie -> delete();
 
         return redirect()
-                -> route('dashboard.movies');
+                -> route('dashboard.movies')->with('message', 'Data Movie Berhasil Dihapus');
     }
 }

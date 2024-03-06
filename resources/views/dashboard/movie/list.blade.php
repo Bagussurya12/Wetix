@@ -3,8 +3,16 @@
 @section('content')
 <div class="mb-2">
     <a href="{{ route('dashboard.movies.create') }}" class="btn btn-success btn-sm"> + Movie</a>
-
 </div>
+@if(session() -> has('message'))
+    <div id="alertSuccess" class="alert alert-success d-flex justify-content-between align-items-center">
+        <strong>{{session() -> get('message')}}</strong>
+        <button id="closeAlert" type="button" class="close" style="border: none; background: none; font-weight: bold;">
+        <span>&times;</span>
+        </button>
+    </div>
+@endif
+
 <div class="card mt-4">
     <div class="card-header">
         <div class="row">
@@ -69,3 +77,9 @@
 </div>
 
 @endsection
+
+<script>
+    document.getElementById("closeAlert").addEventListener("click", function() {
+        document.getElementById("alertSuccess").style.display = "none";
+    });
+</script>
