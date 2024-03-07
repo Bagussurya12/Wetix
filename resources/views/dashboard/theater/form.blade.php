@@ -22,8 +22,8 @@
             <div class="col-md-8 offset-md-2 p-2">
                 <form method="post" action="{{ route($url, $theater-> id ?? '') }}" enctype="multipart/form-data">
                     @csrf
-                    @if(isset($theater))
-                    @method('put')
+                        @if(isset($theater))
+                        @method('put')
                     @endif
                     <div class="form-group">
                         <label for="theater">Theater</label>
@@ -34,8 +34,8 @@
                     </div>
         
                     <div class="form-group">
-                        <label for="address">address</label>
-                        <textarea name="address" class="form-control @error('address') {{'is-invalid'}} @enderror">{{ old('address') ?? $theater->address ?? ''}}</textarea>
+                        <label for="address">Address</label>
+                        <textarea name="address" class="form-control @error('address') {{'is-invalid'}} @enderror">{{ old('address') ?? $theater -> address ?? ''}}</textarea>
                         @error('address')
                         <span class="text-danger">{{ $message }}</span>
                         @enderror
@@ -45,11 +45,11 @@
                             <label for="status">Status</label>
                         </div>    
                                 <div class="form-check form-check-inline">
-                                    <input type="radio" name="status" id="active" class="form-check-input" value="active" @if (old('status') ?? $theater->status == 'active' ?? '' ) checked @endif>
+                                    <input type="radio" name="status" id="active" class="form-check-input" value="active" @if ((old('status') ?? $theater-> status?? '' )  == 'active') checked @endif>
                                     <label for="active" class="form-check-label">Active</label>
                                 </div>
                                 <div class="form-check form-check-inline">
-                                    <input type="radio" name="status" id="inactive" class="form-check-input" value="inactive" @if (old('status') ?? $theater->status  == 'inactive' ?? '') checked @endif>
+                                    <input type="radio" name="status" id="inactive" class="form-check-input" value="inactive" @if ((old('status') ?? $theater->status   ?? '') == 'inactive') checked @endif>
                                     <label for="inactive" class="form-check-label">Inactive</label>
                                 </div>        
                     </div>
@@ -67,6 +67,7 @@
 </div>
 
 @if(isset($theater))
+
     <div class="modal fade" id="deleteModal">
         <div class="modal-dialog">
             <div class="modal-content">
