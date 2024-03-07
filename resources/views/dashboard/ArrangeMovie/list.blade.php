@@ -2,7 +2,7 @@
 
 @section('content')
 <div class="mb-2">
-    <a href="{{ route('dashboard.theaters.create') }}" class="btn btn-success btn-sm"> + thaters</a>
+    <a href="{{ route('dashboard.theaters.arrange.movie.create', $theater -> id) }}" class="btn btn-success btn-sm"> + Movie</a>
 </div>
 @if(session() -> has('message'))
     <div id="alertSuccess" class="alert alert-success d-flex justify-content-between align-items-center">
@@ -32,7 +32,7 @@
         </div>
     </div>
     <div class="card-body p-0">
-        @if($theaters -> total())
+        {{-- @if($theater -> total())
             <table class="table table-striped table-hover">
                 <thead>
                     <tr>
@@ -66,12 +66,12 @@
             </table>
 
             <div class="m-5 pagination">
-                {{-- {{ $theaters->appends($request)-> links() }}  --}}
+               
             </div>
             @else 
                 <h5 class="text-center fw-bold p-3"> Data Theaters Tidak Tersedia </h5>
             
-            @endif
+            @endif --}}
     </div>
 </div>
 

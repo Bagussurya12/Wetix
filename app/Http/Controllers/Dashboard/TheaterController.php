@@ -14,7 +14,7 @@ class TheaterController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request)
+    public function index(Request $request, Theater $theater)
     {
         $q = $request->input('q');
         $active = 'Theaters';
@@ -25,6 +25,7 @@ class TheaterController extends Controller
 
         return view('dashboard/theater/list', [
             'theaters' => $theaters,
+            // 'theater' => $theater,
             'request' => $request,
             'active' => $active,
         ]);
