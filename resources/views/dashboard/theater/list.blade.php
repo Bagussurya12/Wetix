@@ -36,8 +36,9 @@
             <table class="table table-striped table-hover">
                 <thead>
                     <tr>
-                        <th>Theater;</th>
+                        <th>Theater</th>
                         <th>Address</th>
+                        <th>Status</th>
                         <th>&nbsp;</th>
                     </tr>
                 </thead>   
@@ -51,6 +52,7 @@
                             <h5><strong>{{$theater -> theater}}</strong></h5>
                         </td>
                         <td>{{$theater -> address}}</td>
+                        <td>{{$theater -> status}}</td>
                         <td>
                             <a href="{{ route('dashboard.theaters.edit', $theater->id) }}" class="btn btn-warning btn-sm" title="edit">
                                 <i class="fa-solid fa-pen"></i>

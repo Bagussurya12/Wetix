@@ -35,26 +35,28 @@
         
                     <div class="form-group">
                         <label for="address">address</label>
-                        <textarea name="address" class="form-control @error('address') {{'is-invalid'}} @enderror">{{ old('title') ?? $movie->address ?? ''}}</textarea>
+                        <textarea name="address" class="form-control @error('address') {{'is-invalid'}} @enderror">{{ old('address') ?? $theater->address ?? ''}}</textarea>
                         @error('address')
                         <span class="text-danger">{{ $message }}</span>
                         @enderror
                     </div>
-                    <div class="mb-4">
+                    <div >
                         <div class="form-group">
                             <label for="status">Status</label>
                         </div>    
                                 <div class="form-check form-check-inline">
-                                    <input type="radio" name="status" id="active" class="form-check-input" value="active">
+                                    <input type="radio" name="status" id="active" class="form-check-input" value="active" @if (old('status') ?? $theater->status == 'active' ?? '' ) checked @endif>
                                     <label for="active" class="form-check-label">Active</label>
                                 </div>
                                 <div class="form-check form-check-inline">
-                                    <input type="radio" name="status" id="inactive" class="form-check-input" value="inactive">
+                                    <input type="radio" name="status" id="inactive" class="form-check-input" value="inactive" @if (old('status') ?? $theater->status  == 'inactive' ?? '') checked @endif>
                                     <label for="inactive" class="form-check-label">Inactive</label>
                                 </div>        
                     </div>
-                  
-                    <div class="form-group mb-0">
+                  @error('status')
+                  <span class="text-danger mb-5" >{{ $message }}</span>
+                  @enderror
+                    <div class="form-group mb-0 mt-5">
                         <button class="btn btn-sm btn-warning mt-1" type="button" onclick="window.history.back()">Cancel</button>
                         <button type="submit" class="btn btn-success btn-sm mt-1">{{$button}}</button>
                     </div>
