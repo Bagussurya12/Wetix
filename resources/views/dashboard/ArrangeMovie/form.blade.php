@@ -50,6 +50,24 @@
                         <span class="text-danger">{{ $message }}</span>
                         @enderror
                     </div>
+                    <div class="form-group form-row mt-4">
+                        <div class="col-2 align-self-center">
+                            <label for="seats">Seats</label>
+                        </div>
+                        <div class="col-5">
+                            <input type="number" placeholder="Rows" class="form-control @error('rows') {{'is-invalid'}} @enderror" name="rows" value="{{ old('rows') ?? $price -> rows ?? ''}} ">
+                            @error('rows')
+                                <span class="text-danger">{{ $message }}</span>
+                            @enderror  
+                        </div>
+                        <div class="col-5">
+                            <input type="number" placeholder="Column" class="form-control @error('column') {{'is-invalid'}} @enderror" name="column" value="{{ old('column') ?? $price -> rows ?? ''}} ">
+                            @error('columns')
+                                <span class="text-danger">{{ $message }}</span>
+                            @enderror  
+                        </div>
+                        
+                    </div>
                     <div >
                         <div class="form-group">
                             <label for="status">Status</label>
