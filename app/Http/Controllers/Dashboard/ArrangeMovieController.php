@@ -6,6 +6,7 @@ use App\Models\Movie;
 use App\Models\Theater;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Validator;
 
 class ArrangeMovieController extends Controller
 {
@@ -56,7 +57,26 @@ class ArrangeMovieController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validator = Validator::make($request -> all(), [
+            'studio' => 'required',
+            'movie_id' => 'required',
+            'price' => 'required',
+            'rows' => 'required',
+            'columns' => 'required',
+            'schedules' => 'required',
+            // 'schedule' => 'required',
+            'status' => 'required'
+        ]);
+        if($validator -> fails()){
+            return redirect()
+            -> route('dashboard.theaters.arrange.movie.create', $request -> input('theater_id'))
+            ->withErrors($validator)
+            -> withInput();
+        }else{
+            
+            return redirect() -> route('dashboard.theaters')
+            -> with('message', 'DATA THEATER BERHASIL DITAMBAHKAN');
+        }
     }
 
     /**

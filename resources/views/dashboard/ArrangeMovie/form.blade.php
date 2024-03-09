@@ -23,17 +23,25 @@
                 <form method="post" action="{{ route($url, $theater-> id ?? '') }}" enctype="multipart/form-data">
                     @csrf
                         @if(isset($theater))
-                        @method('put')
+                        {{-- @method('put') --}}
                     @endif
                     <input type="hidden" name="theater_id" value="{{$theater -> id}}">
                     <div class="form-group">
                         <label for="movie">Movie</label>
                           <select name="movie_id" class="form-control"> 
                             <option value="">Pilih Movie</option>
+
                         @foreach($movies as $movie )
-                            <option value="{{$movie -> id}}">{{$movie->title}}</option>
+                            @if($movie -> id == old('movie_id'))
+                                <option value="{{$movie -> id}}" selected>{{$movie->title}}</option>
+                            @else 
+                                <option value="{{$movie -> id}}" >{{$movie->title}}</option>
+                            @endif
                         @endforeach
                     </select>
+                    @error('movie_id')
+                        <span class="text-danger">{{$message}}</span>
+                    @enderror
                     </div>
                   
                     <div class="form-group">
@@ -55,29 +63,41 @@
                             <label for="seats">Seats</label>
                         </div>
                         <div class="col-5">
-                            <input type="number" placeholder="Rows" class="form-control @error('rows') {{'is-invalid'}} @enderror" name="rows" value="{{ old('rows') ?? $price -> rows ?? ''}} ">
+                            <input type="number" placeholder="Rows" class="form-control @error('rows') {{'is-invalid'}} @enderror" name="rows" value="{{ old('rows') ?? $rows -> rows ?? ''}} ">
                             @error('rows')
                                 <span class="text-danger">{{ $message }}</span>
                             @enderror  
                         </div>
                         <div class="col-5">
-                            <input type="number" placeholder="Column" class="form-control @error('column') {{'is-invalid'}} @enderror" name="column" value="{{ old('column') ?? $price -> rows ?? ''}} ">
+                            <input type="number" placeholder="Columns" class="form-control @error('columns') {{'is-invalid'}} @enderror" name="columns" value="{{ old('column') ?? $columns -> columns ?? ''}} ">
                             @error('columns')
                                 <span class="text-danger">{{ $message }}</span>
                             @enderror  
                         </div>
-                        
                     </div>
+                    <div class="form-group mb-1">
+                        <label for="schedules">Schedule</label>
+                    </div>
+                    <div class="card mb-3 ">
+                        <div class="card-body">
+                           
+                            <schedule-component>  </schedule-component>
+                        </div>
+                        @error('schedule')
+                        <span class="text-danger">{{$message}}</span>
+                        @enderror
+                    </div>
+                    
                     <div >
                         <div class="form-group">
                             <label for="status">Status</label>
                         </div>    
                                 <div class="form-check form-check-inline">
-                                    <input type="radio" name="status" id="cooming soon" class="form-check-input" value="cooming soon" @if ((old('status') ?? $theater-> status?? '' )  == 'cooming soon') checked @endif>
+                                    <input type="radio" name="status" id="cooming soon" class="form-check-input" value="cooming soon" @if ((old('status') ?? $theater -> status?? '' )  == 'cooming soon') checked @endif>
                                     <label for="cooming soon" class="form-check-label">Cooming Soon</label>
                                 </div>
                                 <div class="form-check form-check-inline">
-                                    <input type="radio" name="status" id="in theater" class="form-check-input" value="in theater" @if ((old('status') ?? $theater->status   ?? '') == 'in theater') checked @endif>
+                                    <input type="radio" name="status" id="in theater" class="form-check-input" value="in theater" @if ((old('status') ?? $theater -> status   ?? '') == 'in theater') checked @endif>
                                     <label for="in theater" class="form-check-label">In theater</label>
                                 </div>        
                                 <div class="form-check form-check-inline">
