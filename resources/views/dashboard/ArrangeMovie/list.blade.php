@@ -17,7 +17,9 @@
     <div class="card-header">
         <div class="row">
             <div class="col-8">
-                <h3 class="font-weight-bold align-self-center">Theaters</h3>
+                <h3 class="font-weight-bold align-self-center mt-3">
+                    Arrange Movie - {{$theater -> theater}}
+                </h3>
             </div>
             <div class="col-4">
                 <form method="get" action="{{url('dashboard/theaters')}}">
@@ -32,46 +34,28 @@
         </div>
     </div>
     <div class="card-body p-0">
-        {{-- @if($theater -> total())
-            <table class="table table-striped table-hover">
-                <thead>
+        <table class="table table-borderless table-striped tabel-hover">
+            <thead>
+                <tr>
+                    <th>Movie</th>
+                    <th>Studio</th>
+                    <th>Price</th>
+                    <th>Status</th>
+                    <th>&nbsp;</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach ($arrangeMovies as $arrangeMovie)
                     <tr>
-                        <th>Theater</th>
-                        <th>Address</th>
-                        <th>Status</th>
+                        <th>{{$arrangeMovie -> movies -> first() -> title}} </th>
+                        <th>{{$arrangeMovie -> studio}}</th>
+                        <th>{{$arrangeMovie -> price}}</th>
+                        <th>{{$arrangeMovie -> status}}</th>
                         <th>&nbsp;</th>
                     </tr>
-                </thead>   
-        
-                <tbody>
-                    @foreach ($theaters as $theater)
-                    <tr>
-                        <td>
-                            <h5><strong>{{$theater -> theater}}</strong></h5>
-                        </td>
-                        <td>{{$theater -> address}}</td>
-                        <td>{{$theater -> status}}</td>
-                        <td>
-                            <a href="{{ route('dashboard.theaters.edit', $theater->id) }}" class="btn btn-warning btn-sm" title="edit">
-                                <i class="fa-solid fa-pen"></i>
-                            </a>
-                            <a href="{{ route('dashboard.theaters.arrange.movie', $theater->id) }}" class="btn btn-primary btn-sm" title="arrange movie">
-                                <i class="fa-solid fa-film"></i>
-                            </a>
-                        </td>
-                    </tr>
-                    @endforeach
-                </tbody>
-                
-            </table>
-
-            <div class="m-5 pagination">
-               
-            </div>
-            @else 
-                <h5 class="text-center fw-bold p-3"> Data Theaters Tidak Tersedia </h5>
-            
-            @endif --}}
+                @endforeach
+            </tbody>
+        </table>     
     </div>
 </div>
 
