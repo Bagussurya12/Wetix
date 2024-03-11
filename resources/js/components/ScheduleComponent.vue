@@ -4,10 +4,10 @@
             <div class="col-11">
                 <input
                     type="text"
-                    name="schedules[][]"
-                    placeholder="Hour (ex: 23:50)"
                     class="form-control"
+                    :name="`schedules[${index}][hour]`"
                     v-model="schedule.hour"
+                    placeholder="Hour (ex: 23:50)"
                 />
             </div>
             <div class="col-1">
@@ -37,6 +37,10 @@ export default {
     data: () => ({
         schedules: [],
     }),
+    props: ["oldSchedules"],
+    created() {
+        this.schedules = this.oldSchedules;
+    },
     methods: {
         addSchedule() {
             this.schedules.push({

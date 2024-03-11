@@ -71,7 +71,8 @@ class TheaterController extends Controller
             $theater -> address = $request -> input('address');
             $theater -> status = $request -> input('status');
             $theater -> save();
-            return redirect() -> route('dashboard.theaters')
+            return redirect() 
+            -> route('dashboard.theaters')
             -> with('message', 'DATA THEATER BERHASIL DITAMBAHKAN');
         }
     }

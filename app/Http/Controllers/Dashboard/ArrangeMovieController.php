@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Dashboard;
 
 use App\Models\Movie;
 use App\Models\Theater;
+use App\Models\ArrangeMovie;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
@@ -55,30 +56,73 @@ class ArrangeMovieController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
-    {
-        $validator = Validator::make($request -> all(), [
-            'studio' => 'required',
-            'movie_id' => 'required',
-            'price' => 'required',
-            'rows' => 'required',
-            'columns' => 'required',
-            'schedules' => 'required',
-            // 'schedule' => 'required',
-            'status' => 'required'
-        ]);
-        if($validator -> fails()){
-            return redirect()
-            -> route('dashboard.theaters.arrange.movie.create', $request -> input('theater_id'))
-            ->withErrors($validator)
-            -> withInput();
-        }else{
-            
-            return redirect() -> route('dashboard.theaters')
-            -> with('message', 'DATA THEATER BERHASIL DITAMBAHKAN');
-        }
-    }
+    // public function store(Request $request)
+    // {
+    //     $validator = Validator::make($request -> all(), [
+    //         'studio' => 'required',
+    //         'theater_id' => 'required',
+    //         'movie_id' => 'required',
+    //         'price' => 'required',
+    //         'rows' => 'required',
+    //         'columns' => 'required',
+    //         'schedules' => 'required',
+    //         'status' => 'required'
+    //     ]);
+    //     if($validator -> fails()){
+    //         return redirect()
+    //                     -> route('dashboard.theaters.arrange.movie.create', $request -> input('theater_id'))
+    //                     -> withErrors($validator)
+    //                     -> withInput();
+    //     }else{
+    //        $theater -> theater_id = $request -> input('theater_id');
+    //        $theater -> movie_id = $request -> input('movie_id');
+    //        $theater -> studio = $request -> input('studio');
+    //        $theater -> price = $request -> input('price');
+    //        $theater -> status = $request -> input('status');
+    //        $theater -> save();
+    //     }
+    // }
+    public function store(Request $request, ArrangeMovie $arrangeMovie)
+{
+    $validator = Validator::make($request->all(), [
+        'studio'         => 'required',
+        'theater_id'     => 'required',
+        'movie_id'       => 'required',
+        'price'          => 'required',
+        'rows'           => 'required',
+        'columns'        => 'required',
+        'schedules'      => 'required',
+        'status'         => 'required'
+    ]);
 
+    if ($validator->fails()) {
+        return redirect()
+            ->route('dashboard.theaters.arrange.movie.create', $request->input('theater_id'))
+            ->withErrors($validator)
+            ->withInput();
+    } else {
+
+        $seats = [
+            'rows'      => $request -> input('rows'),
+            'columns'   => $request -> input('columns')
+        ];
+
+        // $arrangeMovie = new ArrangeMovie();
+        $arrangeMovie->theater_id        = $request->input('theater_id');
+        $arrangeMovie->movie_id          = $request->input('movie_id');
+        $arrangeMovie->studio            = $request->input('studio');
+        $arrangeMovie->price             = $request->input('price');
+        $arrangeMovie->status            = $request->input('status');
+        $arrangeMovie->seats             = json_encode($seats);
+        $arrangeMovie->schedule          = json_encode($request -> input('schedule')) ;
+        $arrangeMovie->save();
+
+        // Redirect ke halaman yang sesuai setelah sukses menyimpan data
+        return redirect()
+            -> route('dashboard.theaters.arrange.movie', $request-> input ('theater_id'))
+            -> with('message', 'Theater movie arrangement has been created successfully');
+    }
+}
     /**
      * Display the specified resource.
      *

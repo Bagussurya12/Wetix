@@ -46,14 +46,14 @@
                   
                     <div class="form-group">
                         <label for="studio">Studio</label>
-                        <input type="text" class="form-control @error('studio') {{'is-invalid'}} @enderror" name="studio" value="{{ old('studio') ?? $studio -> studio ?? ''}} ">
+                        <input type="text" class="form-control @error('studio') {{'is-invalid'}} @enderror" name="studio" value="{{ old('studio') ?? $studio -> studio ?? ''}}">
                         @error('studio')
                         <span class="text-danger">{{ $message }}</span>
                         @enderror
                     </div>
                     <div class="form-group">
                         <label for="price">Price</label>
-                        <input type="number" class="form-control @error('price') {{'is-invalid'}} @enderror" name="price" value="{{ old('price') ?? $price -> price ?? ''}} ">
+                        <input type="number" class="form-control @error('price') {{'is-invalid'}} @enderror" name="price" value="{{ old('price') ?? $price -> price ?? ''}}">
                         @error('price')
                         <span class="text-danger">{{ $message }}</span>
                         @enderror
@@ -63,13 +63,13 @@
                             <label for="seats">Seats</label>
                         </div>
                         <div class="col-5">
-                            <input type="number" placeholder="Rows" class="form-control @error('rows') {{'is-invalid'}} @enderror" name="rows" value="{{ old('rows') ?? $rows -> rows ?? ''}} ">
+                            <input type="number" placeholder="Rows" class="form-control @error('rows') {{'is-invalid'}} @enderror" name="rows" value="{{ old('rows') ?? $rows -> rows ?? ''}}">
                             @error('rows')
                                 <span class="text-danger">{{ $message }}</span>
                             @enderror  
                         </div>
                         <div class="col-5">
-                            <input type="number" placeholder="Columns" class="form-control @error('columns') {{'is-invalid'}} @enderror" name="columns" value="{{ old('column') ?? $columns -> columns ?? ''}} ">
+                            <input type="number" placeholder="Columns" class="form-control @error('columns') {{'is-invalid'}} @enderror" name="columns" value="{{ old('columns') ?? $columns -> columns ?? ''}}">
                             @error('columns')
                                 <span class="text-danger">{{ $message }}</span>
                             @enderror  
@@ -81,7 +81,7 @@
                     <div class="card mb-3 ">
                         <div class="card-body">
                            
-                            <schedule-component>  </schedule-component>
+                            <schedule-component :old-schedules="{{ json_encode(old('schedules')) ?? [] }}">  </schedule-component>
                         </div>
                         @error('schedule')
                         <span class="text-danger">{{$message}}</span>
